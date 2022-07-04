@@ -7,13 +7,13 @@ require([
     "js/DistanceMeasure.js",
     "js/BaseMap.js",
     "js/SlideWidget.js",
-    "js/Screenshot.js",
+    "js/ScreenShot.js",
     "js/Direction.js",
     "js/DayLight.js",
     "js/LineOfSight.js",
     "js/Selection.js",
     "js/SearchWidget.js",
-    "js/Charts.js",
+    "js/charts.js",
     "js/DataTable.js"
 ], function() { 
     TimeSlider.init();
