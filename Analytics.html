@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Analytics - Change Detection</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="icon" href="./assests/images/icons8-city-buildings-100.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="assetstheme/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://js.arcgis.com/4.18/esri/css/main.css" rel="stylesheet">
+    <!-- <link rel="shortcut icon" href="assetstheme/media/logos/favicon.ico"/> -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/Anaytics.css">
+</head>
+<body>
+    <div class=" d-flex px-3 py-2 w-100 justify-content-between gap-3 flex-wrap align-items-center">
+        <div class="d-flex align-items-center">
+            <a href="index.html" target="_blank">
+                <img src="./assests/images/Picture2.png" class="globologo" alt="logo"></a>
+            <span class="header-fisrt-child-text d-none d-lg-flex align-items-center">
+                CHANGE DETECTION
+            </span>
+        </div>
+        <div class="menu">
+            <ul class="d-flex justify-content-between w-100 gap-3">
+                <li class="active" data-map-view-type="encroachment">Encroachment</li>
+                <li data-map-view-type="development">Development</li>
+                <li data-map-view-type="timeline">Timeline</li>
+                <li data-map-view-type="landuse">Landuse</li>
+                <li data-map-view-type="complaints">Complaints</li>
+            </ul>
+        </div>
+    </div>
+    <main>
+        <div class="container-fluid">
+            <div class="mt-4"
+                style=" display: flex; width: 100%; justify-content: center; gap: 19px;  flex-wrap: wrap;">
+                <div class="card changeDetection-opacity-transition-class card-xl-stretch mb-xl-8  growthChart"
+                    style="background-color: #f9f9f9;height:165px;width: 250px">
+                    <!-- card-header -->
+                    <div class="p-0 px-2 py-3 d-flex justify-content-between align-items-center"
+                        style="background-color: #4B5D67 !important;border-top-left-radius: 5px;border-top-right-radius: 5px;">
+                        <div class="card-titlen  text-white">Growth Calculation</div>
+                        <div class="card-toolbar">
+                            <button type="button " class="btn btn-sm " style="background-color: #f9f9f9;color:#4B5D67"
+                                id="dropDownSubmit">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                    <!-- card-header-end -->
+                    <!--begin::Body-->
+                    <div class="card-body gap-2">
+                        <div class="row ">
+                            <div class="col offset-1" style="margin-top: -11px;">
+                                <select class="startYear shadow-sm text-white" id="startYeardropDown">
+
+                                    <option selected>2015</option>
+                                    <option>2016</option>
+                                    <option>2017</option>
+                                    <option>2018</option>
+                                    <option>2019</option>
+                                    <option>2020</option>
+                                    <option>2021</option>
+                                    <option>2022</option>
+                                    <option>2023</option>
+                                    <option>2024</option>
+                                    <option>2025</option>
+                                </select>
+                            </div>
+                            <div class="col" style="margin-top: -11px;">
+                                <select class="endYear text-white" id="endYeardropDown">
+
+
+                                    <option selected>2016</option>
+                                    <option>2017</option>
+                                    <option>2018</option>
+                                    <option>2019</option>
+                                    <option>2020</option>
+                                    <option>2021</option>
+                                    <option>2022</option>
+                                    <option>2023</option>
+                                    <option>2024</option>
+                                    <option>2025</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <select class="attributes text-white" id="dropdownType">
+                            </select>
+                        </div>
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <div class="card changeDetection-opacity-transition-class growthChart d-flex flex-column justify-content-center card-xl-stretch mb-xl-8"
+                    style="height:165px;width: 250px">
+                    <div class="btitle" id="startYearTitle">2016</div>
+                    <div class="d-flex justify-content-center align-items-center count-div">
+                        <img src="./assetstheme/media/icons/duotune/graphs/gra007.svg" class="chartsvg"
+                            style="height: 70px;">
+                        <div class="" id="startYearCount"></div>
+                    </div>
+                </div>
+                <div class="card changeDetection-opacity-transition-class growthChart d-flex flex-column justify-content-center card-xl-stretch mb-xl-8"
+                    style="height:165px;width: 250px;">
+                    <div class="btitle" id="endYearTitle">2016</div>
+                    <div class="d-flex justify-content-center align-items-center count-div">
+                        <img src="./assetstheme/media/icons/duotune/graphs/gra007.svg" class="chartsvg"
+                            style="height: 70px;">
+                        <div class="" style="color:#4B5D67" id="endYearCount"></div>
+                    </div>
+                </div>
+                <div class="card changeDetection-opacity-transition-class growthChart d-flex flex-column justify-content-center card-xl-stretch mb-xl-8"
+                    style="height:165px;width: 250px;">
+                    <div class="btitle">Percentage</div>
+                    <div class="d-flex justify-content-center align-items-center count-div">
+                        <img src="./assetstheme/media/icons/duotune/graphs/gra007.svg" class="chartsvg"
+                            style="height: 70px;">
+                        <div class="" id="percentageYear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5" id="ChartsAppend">
+            </div>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0-beta1/js/bootstrap.min.js"
+        integrity="sha512-Hqe3s+yLpqaBbXM6VA0cnj/T56ii5YjNrMT9v+us11Q81L0wzUG0jEMNECtugqNu2Uq5MSttCg0p4KK0kCPVaQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/themes/kelly.js"></script>
+    <script src="//www.amcharts.com/lib/4/themes/material.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="./js/NavigationMenu.js"></script>
+    <script src="./js/Analytics.js"></script>
+</body>
+
+</html>

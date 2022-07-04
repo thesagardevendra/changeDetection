@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assests/images/icons8-city-buildings-100.png">
+    <title>Login Page - Change Detection</title>
+</head>
+<body class="d-none">
+    <div class="mycontainer h-screen w-screen flex flex-col ">
+        <div id="title" class="flex w-full justify-center items-center space-x-3 md:h-1/2 p-7 bg-[#4B5D67]">
+            <img class="h-20" src="./assests/images/Picture2.png" id="logo">
+            <div id="titleText" class="flex flex-col text-sm md:text-3xl lg:text-5xl font-bold whitespace-nowrap text-[#4B5D67]">
+                <span class="text-[#f9f9f9]">CHANGE DETECTION</span>
+            </div>
+        </div>
+        <div class="user_card w-full lg:h-3/4  flex justify-center bg-[#f9f9f9] items-center p-5 flex-grow" id="loginCard">
+            <div class="form_container bg-[#4B5D67]  rounded-md h-full md:h-[300px] w-full md:w-96"> 
+                <form class="h-full flex flex-col space-y-4  justify-center items-center">
+                    <div class="font-bold text-2xl border-b-4 border-offset-4 pb-1 text-gray-100 border-[#f9f9f9] self-start ml-10 md:ml-24" id="SignIN">
+                        Sign in
+                    </div>
+                    <div class="input-group username1">
+                        <input type="text" name="" class="form-control input_user text-[#4B5D67] bg-[#f9f9f9] px-3 py-1 rounded " value="" placeholder="Username"
+                            id="username">                       
+                    </div>
+                    <div class="input-group passcode1">
+                        <input type="password" name="" class="form-control input_pass text-[#4B5D67] bg-[#f9f9f9] px-3 py-1 rounded " value="" placeholder="Password"
+                            id="password">
+                    </div>
+                    <div class="input-group self-start ml-10 md:ml-24" id="rememberme">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input checked:bg-gray-500" id="customControlInline">
+                            <label class="custom-control-label text-gray-300" for="customControlInline"><b>Remember me</b></label>
+                        </div>
+                    </div>
+                    <div class="aTags flex w-full justify-center text-blue-500 font-semibold ">
+                        <a href="#" class="ml-2 text-gray-400">Sign Up</a>
+                        <a href="#" class="text-gray-400" style="margin-left: 20%;">Forgot password?</a>
+                    </div>
+                    <div class="login_container">
+                        <a href="index.html" target="_blank">
+                            <button name="button" class="btn btn-light login_btn bg-gray-200 px-3 py-1 rounded font-semibold">Login</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</body>
+</html>

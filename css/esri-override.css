@@ -1,0 +1,97 @@
+.esri-popup {
+  position: fixed;
+  right: 80px !important;
+  bottom: 30px !important;
+  z-index: 100000 !important;
+  top: auto !important;
+  left: auto !important;
+}
+
+/* // rgb(34, 59, 86)
+//#4B5D67
+// */
+
+
+.esri-popup .esri-popup__main-container, .esri-popup .esri-feature.esri-widget {
+  background-color: #f9f9f9 important;
+  border-radius: 4px;
+  margin-right: 38px;
+  margin-bottom: 17px;
+}
+.esri-popup .esri-widget__table tr {
+  background-color: #4B5D67;
+  color: #4B5D67;
+}
+
+.esri-popup .esri-widget__table tr td,
+.esri-popup .esri-widget__table tr th {
+  border: 1px solid #283d59;
+  color: white;
+}
+
+.esri-popup .esri-popup__button {
+  color: #4B5D67;
+}
+
+.esri-popup .esri-popup__button:hover {
+  color: #4B5D67;
+  background-color: #345580;
+}
+
+.esri-popup .esri-popup__header-title {
+  color: #4B5D67;
+}
+
+.esri-popup .esri-popup__header-container--button:hover {
+  background-color: #ffffff00;
+}
+
+.esri-popup--is-docked-top-left .esri-popup__main-container,
+.esri-popup--is-docked-top-right .esri-popup__main-container,
+.esri-popup--is-docked-bottom-left .esri-popup__main-container,
+.esri-popup--is-docked-bottom-right .esri-popup__main-container {
+  max-height: 100%;
+}
+
+.esri-popup--is-docked {
+  top: 80px;
+}
+
+.esri-popup .esri-popup__navigation {
+  background-color: #F9F9F9 ;
+}
+
+.esri-popup .esri-popup__pointer {
+  display: none !important;
+}
+.esri-search__container .esri-search__input,
+.esri-search__container .esri-widget--button {
+  z-index: 0;
+  background-color: #4B5D67;
+  margin-bottom: -1px;
+  margin-left: 3px;
+  /* margin-bottom: -8px; */
+  margin-bottom: 16px;
+}
+.esri-directions__warning-card {
+    border-top: solid 2px #de2900;
+    color: #6e6e6e;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 30%);
+    padding: 12px;
+    margin: 66px auto;
+    width: 90%;
+}
+.esri-directions__stop-input .esri-search .esri-search__input {
+  border: none;
+  height: auto;
+  margin-bottom: 10px;
+  outline-offset: 4px;
+  min-height: 32px;
+}
+.esri-component .esri-attribution .esri-widget{
+display: none;
+}
+
+.esri-widget__heading{
+font-size:15px;
+}

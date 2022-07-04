@@ -1,0 +1,606 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.esri-attribution {
+  display: none;
+}
+
+.fa-table {
+  right: 13px;
+  font-size: 27px;
+  top: 70px;
+  background: #F9F9F9;
+  color: #4B5D67;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4B5D67;
+}
+
+.fa-times {
+  color: #4B5D67;
+  right: 14px;
+  font-size: 21px;
+  top: 7px;
+}
+
+.header-fisrt-child-text {
+  white-space: nowrap;
+  font-weight: 800;
+  font-size: 26px;
+  color: #4B5D67;
+  padding: 7px;
+  border-radius: 4px;
+}
+
+.globologo {
+  width: 50px;
+}
+
+.menu.open ul {
+  display: block;
+  right: 21px;
+  position: absolute;
+}
+
+.menu ul {
+  background-color: #4B5D67;
+  list-style: none;
+  margin: 0;
+  display: none;
+  border-radius: 4px;
+  padding: 5px 7px;
+}
+
+.menu ul li {
+  color: #F9F9F9;
+  font-size: small;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 5px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.menu ul li:hover,
+.menu ul li.active {
+  color: #4B5D67;
+  background-color: #F9F9F9;
+  cursor: pointer;
+}
+
+#forms {
+  position: absolute;
+  right: 10px;
+  background-color: #F9F9F9;
+  top: 70px;
+  width: 590px;
+  padding-bottom: 10px;
+  border-radius: 4px;
+}
+#forms .head {
+  display: flex;
+  flex-direction: row;
+  padding: 15px 20px;
+  color: #4B5D67;
+  font-size: x-large;
+  align-items: center;
+  border-bottom: 1px solid #082442;
+}
+#forms .head button {
+  background: none;
+  border: none;
+  font-size: small;
+  padding: 5px;
+  border-radius: 4px;
+}
+#forms .head button:hover, #forms .head button.active {
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #4B5D67;
+  color: #F9F9F9;
+}
+#forms .form-container {
+  height: calc(100% - 65px);
+  overflow: auto;
+  padding: 0 20px;
+  text-transform: uppercase;
+}
+#forms .form-container #physicalform,
+#forms .form-container #unitData {
+  padding-top: 20px;
+  font-size: small;
+}
+#forms .form-container #physicalform .row > div,
+#forms .form-container #physicalform .years,
+#forms .form-container #unitData .row > div,
+#forms .form-container #unitData .years {
+  margin-bottom: 15px;
+}
+#forms .form-container #physicalform .row > div input,
+#forms .form-container #physicalform .row > div textarea,
+#forms .form-container #physicalform .years input,
+#forms .form-container #physicalform .years textarea,
+#forms .form-container #unitData .row > div input,
+#forms .form-container #unitData .row > div textarea,
+#forms .form-container #unitData .years input,
+#forms .form-container #unitData .years textarea {
+  border-radius: 4px;
+  background-color: #4B5D67;
+  border: none;
+  color: white;
+  font-size: small;
+  resize: none;
+}
+#forms .form-container #physicalform .row > div input::-moz-placeholder, #forms .form-container #physicalform .row > div textarea::-moz-placeholder, #forms .form-container #physicalform .years input::-moz-placeholder, #forms .form-container #physicalform .years textarea::-moz-placeholder, #forms .form-container #unitData .row > div input::-moz-placeholder, #forms .form-container #unitData .row > div textarea::-moz-placeholder, #forms .form-container #unitData .years input::-moz-placeholder, #forms .form-container #unitData .years textarea::-moz-placeholder {
+  color: rgb(170, 170, 170);
+}
+#forms .form-container #physicalform .row > div input:-ms-input-placeholder, #forms .form-container #physicalform .row > div textarea:-ms-input-placeholder, #forms .form-container #physicalform .years input:-ms-input-placeholder, #forms .form-container #physicalform .years textarea:-ms-input-placeholder, #forms .form-container #unitData .row > div input:-ms-input-placeholder, #forms .form-container #unitData .row > div textarea:-ms-input-placeholder, #forms .form-container #unitData .years input:-ms-input-placeholder, #forms .form-container #unitData .years textarea:-ms-input-placeholder {
+  color: rgb(170, 170, 170);
+}
+#forms .form-container #physicalform .row > div input::placeholder,
+#forms .form-container #physicalform .row > div textarea::placeholder,
+#forms .form-container #physicalform .years input::placeholder,
+#forms .form-container #physicalform .years textarea::placeholder,
+#forms .form-container #unitData .row > div input::placeholder,
+#forms .form-container #unitData .row > div textarea::placeholder,
+#forms .form-container #unitData .years input::placeholder,
+#forms .form-container #unitData .years textarea::placeholder {
+  color: rgb(170, 170, 170);
+}
+#forms .form-container #physicalform .row > div input::-webkit-file-upload-button, #forms .form-container #physicalform .row > div textarea::-webkit-file-upload-button, #forms .form-container #physicalform .years input::-webkit-file-upload-button, #forms .form-container #physicalform .years textarea::-webkit-file-upload-button, #forms .form-container #unitData .row > div input::-webkit-file-upload-button, #forms .form-container #unitData .row > div textarea::-webkit-file-upload-button, #forms .form-container #unitData .years input::-webkit-file-upload-button, #forms .form-container #unitData .years textarea::-webkit-file-upload-button {
+  display: none;
+}
+#forms .form-container #physicalform .row > div input::file-selector-button,
+#forms .form-container #physicalform .row > div textarea::file-selector-button,
+#forms .form-container #physicalform .years input::file-selector-button,
+#forms .form-container #physicalform .years textarea::file-selector-button,
+#forms .form-container #unitData .row > div input::file-selector-button,
+#forms .form-container #unitData .row > div textarea::file-selector-button,
+#forms .form-container #unitData .years input::file-selector-button,
+#forms .form-container #unitData .years textarea::file-selector-button {
+  display: none;
+}
+#forms .form-container #physicalform label,
+#forms .form-container #unitData label {
+  color: #4B5D67;
+}
+#forms .form-container #physicalform span,
+#forms .form-container #unitData span {
+  color: red;
+  display: none;
+}
+#forms .form-container #unitData .years {
+  display: flex;
+  flex: 0;
+}
+#forms .form-container #unitData .years > div {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+#forms .form-container #statusContent {
+  padding-top: 20px;
+}
+#forms .form-container #statusContent table {
+  border-radius: 4px;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: white;
+  table-layout: fixed;
+}
+#forms .form-container #statusContent table thead > tr th:first-child {
+  border-start-start-radius: 10px;
+}
+#forms .form-container #statusContent table thead > tr th:last-child {
+  border-start-end-radius: 10px;
+}
+#forms .form-container #statusContent table thead > tr th,
+#forms .form-container #statusContent table tr th:first-child {
+  background-color: #4B5D67;
+}
+#forms .form-container #statusContent table th,
+#forms .form-container #statusContent table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #4B5D67;
+}
+#forms .form-container #statusContent table select {
+  background-color: #4B5D67;
+  border: none;
+  color: white;
+  -webkit-appearance: none;
+}
+#forms .form-container button {
+  background: none;
+  border: none;
+  padding: 5px 20px;
+  background-color: #4B5D67;
+  border-radius: 4px;
+  color: #F9F9F9;
+}
+#forms .form-container button:hover {
+  padding: 5px 20px;
+  background-color: #F9F9F9;
+  color: #4B5D67;
+  border: 1px solid #4B5D67;
+}
+
+.widgets,
+.controlwidgets {
+  background-color: #F9F9F9;
+  position: absolute;
+  gap: 15px;
+  display: flex;
+  bottom: 10px;
+  left: 11px;
+  padding: 5px 5px;
+  border-radius: 4px;
+}
+.widgets > div,
+.controlwidgets > div {
+  cursor: pointer;
+  padding: 5px;
+  position: relative;
+}
+.widgets > div > span,
+.controlwidgets > div > span {
+  position: absolute;
+  display: none;
+  top: -45px;
+  left: -50%;
+  background-color: #F9F9F9;
+  color: #4B5D67;
+  padding: 5px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.widgets > div .box,
+.controlwidgets > div .box {
+  color: white;
+  display: none;
+  position: absolute;
+  height: 100px;
+  width: 200px;
+  background-color: #4B5D67;
+  bottom: 50px;
+  transform: translateX(-50%);
+}
+.widgets > div.active .box,
+.controlwidgets > div.active .box {
+  display: block;
+}
+.widgets > div:hover .widgetsSpan,
+.controlwidgets > div:hover .widgetsSpan {
+  display: block;
+}
+.widgets > div.active, .widgets > div:hover,
+.controlwidgets > div.active,
+.controlwidgets > div:hover {
+  background-color: #4B5D67;
+  border-radius: 4px;
+}
+.widgets > div.active svg path, .widgets > div:hover svg path,
+.controlwidgets > div.active svg path,
+.controlwidgets > div:hover svg path {
+  fill: #F9F9F9;
+}
+.widgets > div svg path,
+.controlwidgets > div svg path {
+  fill: #4B5D67;
+}
+.widgets .layerlist .box,
+.controlwidgets .layerlist .box {
+  height: 165px;
+  width: 356px;
+  left: 125px;
+  border-radius: 4px;
+  color: #4B5D67;
+}
+
+.basemap .box {
+  background-color: #0a2335;
+}
+.basemap .box ul.esri-basemap-gallery__item-container {
+  flex-flow: wrap;
+}
+.basemap .box ul.esri-basemap-gallery__item-container .esri-basemap-gallery__item {
+  width: 32%;
+  text-align: center;
+}
+.basemap .box ul.esri-basemap-gallery__item-container .esri-basemap-gallery__item:hover {
+  background-color: #f9f9f9;
+  border-left-color: #304b70;
+}
+.basemap .box ul.esri-basemap-gallery__item-container .esri-basemap-gallery__item .esri-basemap-gallery__item-title {
+  color: #a5a1a1;
+}
+
+.controlwidgets {
+  left: 10px;
+  top: 100px;
+  bottom: auto;
+  flex-direction: column;
+}
+.controlwidgets > div span {
+  top: 0;
+  left: 61px;
+}
+
+#SearchCross {
+  position: absolute;
+  right: 10px;
+  height: 18px;
+  top: 7px;
+}
+
+#searchText {
+  margin-left: 19px;
+}
+
+.esri-search__container {
+  position: relative;
+  align-items: stretch;
+  flex: 1 0 100%;
+  top: 23px;
+}
+
+#viewDiv {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -2;
+}
+
+#searchWidget {
+  height: 76px;
+  border-radius: 4px;
+  color: #4B5D67;
+  position: absolute;
+  background-color: #F9F9F9;
+  z-index: 2;
+  bottom: 190px;
+  display: none;
+  left: 65px;
+}
+
+.legend {
+  height: auto !important;
+  display: none;
+  width: 365px !important;
+  background-color: #F9F9F9 !important;
+  border-radius: 4px !important;
+  position: fixed !important;
+  left: 65px !important;
+  bottom: 65px !important;
+  /* top: 641px; */
+  flex: auto !important;
+  /* display: flex; */
+  flex-flow: wrap !important;
+  overflow: auto !important;
+}
+
+.legendbtn {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: #4B5D67;
+  margin-top: 4px;
+}
+
+.esri-ui-corner {
+  display: none;
+}
+
+.checkmark9 {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 15px !important;
+  width: 15px !important;
+  border-radius: 50% !important;
+  margin-left: 10px !important;
+  margin-top: 5px !important;
+}
+
+.esri-component.esri-time-slider.esri-widget.esri-time-slider__mode--instant.esri-time-slider__layout--compact {
+  display: none;
+}
+
+.esri-component.esri-time-slider.esri-widget.esri-time-slider__mode--instant.esri-time-slider__layout--compact {
+  position: absolute;
+  left: 65px;
+  bottom: 62px;
+  height: 133px;
+  border-radius: 4px;
+  background-color: #F9F9F9;
+  color: #4B5D67;
+  display: none;
+}
+
+.esri-time-slider__layout--compact .esri-time-slider__slider {
+  flex: auto;
+  background-color: #F9F9F9;
+  color: #4B5D67;
+}
+
+.esri-time-slider__slider .esri-slider {
+  margin-top: -19px;
+  background-color: #F9F9F9;
+  color: #4B5D67;
+}
+
+.esri-time-slider__time-extent-date {
+  color: #4B5D67;
+}
+
+.esri-time-slider__previous-button,
+.esri-time-slider__next-button {
+  background-color: #F9F9F9;
+  color: #4B5D67;
+}
+
+.esri-widget--button.esri-widget--button.esri-time-slider__animation-button {
+  background-color: #F9F9F9;
+  color: #4B5D67;
+}
+
+.esri-time-slider__mode--instant .esri-slider__segment-1 {
+  background-color: rgba(110, 110, 110, 0.4);
+}
+
+.esri-time-slider__mode--instant .esri-slider__segment-0 {
+  background-color: #4B5D67;
+}
+
+.esri-time-slider__layout--compact .esri-time-slider__row:nth-child(2) {
+  height: 55%;
+  overflow: hidden;
+}
+
+.esri-time-slider__layout--compact .esri-time-slider__row:nth-child(1),
+.esri-time-slider__layout--compact .esri-time-slider__row:nth-child(3) {
+  padding-bottom: 0%;
+  padding-top: 2%;
+}
+
+.esri-widget--button.esri-time-slider__previous-button:hover {
+  color: #4B5D67;
+  background-color: #F9F9F9;
+}
+
+.esri-widget--button.esri-time-slider__next-button:hover {
+  color: #4B5D67;
+  background-color: #F9F9F9;
+}
+
+.esri-widget--button {
+  background-color: #F9F9F9;
+  color: #4B5D67;
+}
+
+.esri-widget--button:hover {
+  background-color: #4B5D67;
+  color: #F9F9F9;
+}
+
+.swal-icon--success__hide-corners {
+  background-color: #F9F9F9;
+}
+
+.swal-icon--success:before,
+.swal-overlay--show-modal .swal-modal,
+.swal-icon--success__hide-corners,
+.swal-icon--success:after {
+  background-color: #F9F9F9;
+}
+
+.swal-icon--success__line {
+  background-color: #4B5D67;
+}
+
+.swal-button {
+  background-color: #4B5D67;
+}
+
+.swal-title:not(:last-child) {
+  color: #4B5D67;
+}
+
+.swal-icon--success__ring {
+  border: 4px solid #4B5D67;
+}
+
+.swal-button:not([disabled]):hover {
+  background-color: #4B5D67;
+}
+
+.esri-layer-list__item {
+  background-color: #F9F9F9;
+}
+
+.esri-layer-list__item-toggle {
+  color: #4B5D67;
+}
+
+.esri-basemap-gallery__item {
+  display: inline-block;
+}
+
+.esri-popup {
+  display: none !important;
+}
+
+@media (min-width: 576px) {
+  header .title {
+    display: block;
+  }
+  header .menu ul {
+    display: none;
+  }
+}
+@media (min-width: 992px) {
+  header .space,
+header .title {
+    display: none;
+  }
+  header .menu {
+    background-color: #F9F9F9;
+    border-radius: 4px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 0;
+  }
+  header .menu .icon {
+    display: none;
+  }
+  header .menu ul {
+    display: block;
+    border-radius: 4px;
+    padding: 6px 10px;
+  }
+  header .menu ul li {
+    display: inline-block;
+  }
+}
+@media (min-width: 1025px) {
+  #forms {
+    bottom: 10px;
+  }
+}
+@media (min-width: 1200px) {
+  header .title {
+    display: block;
+  }
+  header .menu {
+    margin-left: auto;
+  }
+
+  #forms {
+    top: 70px;
+  }
+
+  .profilemenuspace {
+    display: none;
+  }
+
+  #userform .years > div {
+    padding: 0 40px !important;
+  }
+}/*# sourceMappingURL=ControlPanel.css.map */

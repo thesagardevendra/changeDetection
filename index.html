@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Change Detection</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="./assests/images/icons8-city-buildings-100.png">
+    <!-- Libraries -->
+    <link rel="stylesheet" href="./assests/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+        integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://js.arcgis.com/4.18/esri/css/main.css" rel="stylesheet">
+    <!-- <link href="./assests/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom -->
+    <!-- <link  href="./css/style.css" rel="stylesheet"> -->
+    <link href="/css/main.css" rel="stylesheet">
+    <!-- <link  href="/css/main-override.css" rel="stylesheet"> -->
+    <link href="/css/esri-override.css" rel="stylesheet">
+</head>
+<body class="">
+    <div id="anim" class="loader"></div>
+    <!--Measurement widget-->
+    <div id="mycontent">
+        <div class="container-fluid px-0">
+            <div id="viewDiv">
+                <div id="widgetDivCont" class="changeDetection-opacity-transition-class">
+                    <div id="widgetDiv"></div>
+                    <div id="widgetDiv2"></div>
+                </div>
+            </div>
+            <div id="searchWidget" class="mySearch changeDetection-opacity-transition-class">
+                <text id="searchText">Search</text>
+                <img id="SearchCross" src="./assests/images/Icon metro-cross.png">
+            </div>
+            <div id="createSlideDiv" class="esri-widget changeDetection-opacity-transition-class">
+                <div>
+                    <text id="slideText">New slide:</text> <input type="text" id="createSlideTitleInput" size="10" />
+                    <button id="createSlideButton">Create</button>
+                </div>
+                <div id="slidesDiv" class="esri-widget"></div>
+            </div>
+            <div id="screenshotDiv" class="hide changeDetection-opacity-transition-class">
+                <img class="js-screenshot-image" />
+                <div>
+                    <label>Set a text to be displayed on the image: </label><input type="text" placeholder="Image text"
+                        id="textInput" autofocus />
+                </div>
+                <button id="downloadBtn" class="action-button" aria-label="Download image" title="Download image">
+                    Download image</button>
+                <button id="closeBtn" class="action-button" aria-label="Back to webscene" title="Back to webscene">Back
+                    to webscene</button>
+            </div>
+            <div id="maskDiv" class="hide screenshotCursor changeDetection-opacity-transition-class"></div>
+            <div id="queryDiv" class="esri-widget changeDetection-opacity-transition-class">
+                <div class="geometry-options">
+                    <button class="esri-widget--button esri-icon-polygon geometry-button" id="polygon-geometry-button"
+                        value="polygon" title="Query by polygon"></button>
+                </div>
+                <button class="esri-button" id="clearGeometry" type="button">
+                    Clear
+                </button>
+            </div>
+            <div class="forms" id="buildingDetail">
+                <div class="row">
+                    <div id="buildingName">
+                        XYZ
+                    </div>
+                    <img id="closedetail" src="./assests/images/Icon metro-cross.png">
+                </div>
+                <form>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="buildingImage">
+                            </div>
+                        </div>
+                        <div class="col-md-8" id="builingContent">
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component" placeholder="ObjectId"
+                                        value="ObjectId" readonly>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component left" placeholder="ObjectID"
+                                        id="ObjectID">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component" placeholder="Owner" value="Owner"
+                                        readonly>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component left" placeholder="Owner"
+                                        id="UnitOwner">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component" placeholder="Developer"
+                                        value="Developer" readonly>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component left" placeholder="Developer"
+                                        id="UnitDeveloper">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component" placeholder="Year Constructed"
+                                        value="Year Constructed" readonly>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component left"
+                                        placeholder="Year Constructed" id="UnitYearconstruct">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component" placeholder="Area name"
+                                        value="Area Name" readonly>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component left" placeholder="Area name"
+                                        id="UnitAreaname">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component" placeholder="areasq"
+                                        value="Area(sq)" readonly>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component left" placeholder="areasq"
+                                        id="UnitAreasq">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component" placeholder="description"
+                                        value="Description" readonly>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component left" placeholder="description"
+                                        id="UnitDescription">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col form-group">
+                                    <input type="text" class="form-control component" placeholder="Address"
+                                        value="Address" readonly>
+                                </div>
+                                <div class="col form-group">
+
+                                    <input type="text" class="form-control component left" placeholder="Address"
+                                        id="addressUnitDetails">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="mainRightPanel">
+                <div class="rightPanel py-1">
+                    <div class="wbtn" id="timeSlideDiv" title="Time Slider">
+                        <a>
+                            <svg id="timeSlideButton" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                viewBox="0 0 30 30">
+                                <path id="Icon_ionic-ios-time" data-name="Icon ionic-ios-time"
+                                    d="M18.375,3.375a15,15,0,1,0,15,15A15,15,0,0,0,18.375,3.375Zm1.01,16.3a1.013,1.013,0,0,1-1.01,1.01H11.452a1.01,1.01,0,0,1,0-2.019h5.913V9.144a1.01,1.01,0,0,1,2.019,0Z"
+                                    transform="translate(-3.375 -3.375)" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="wbtn" id="layerListDiv" title="Layer List">
+                        <a>
+                            <svg id="layerListButton" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                viewBox="0 0 30 30">
+                                <path id="Icon_awesome-layer-group" data-name="Icon awesome-layer-group"
+                                    d="M.727,8.673l13.649,6.192a1.5,1.5,0,0,0,1.247,0L29.272,8.673a1.309,1.309,0,0,0,0-2.345L15.624.135a1.5,1.5,0,0,0-1.247,0L.727,6.327a1.31,1.31,0,0,0,0,2.346Zm28.545,5.173-3.4-1.543L16.4,16.6a3.377,3.377,0,0,1-2.8,0L4.131,12.3l-3.4,1.543a1.308,1.308,0,0,0,0,2.344l13.649,6.187a1.5,1.5,0,0,0,1.247,0l13.649-6.187a1.308,1.308,0,0,0,0-2.344Zm0,7.488L25.882,19.8,16.4,24.1a3.377,3.377,0,0,1-2.8,0L4.118,19.8.727,21.334a1.308,1.308,0,0,0,0,2.344l13.649,6.187a1.5,1.5,0,0,0,1.247,0l13.649-6.187a1.308,1.308,0,0,0,0-2.344Z"
+                                    transform="translate(0 0.001)" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="searchs" style="padding: 5px; border-radius: 7px;">
+                        <i class="fa fa-search pointer" id="searchLogo" style="font-size: 28px; "></i>
+                    </div>
+
+                </div>
+                <div class="pb-1 px-3" id="leftPanel">
+                    <div id="homeDiv" class="d-flex justify-content-center align-items-center">
+                        <i id="homeButton" class="fa fa-home fa-2x "></i>
+                        <span class="mtooltip">Home</span>
+                    </div>
+                    <div id="computerDiv" class="d-flex justify-content-center align-items-center">
+                        <a href="controlPanel.html" target="_blank">
+                            <i id="computerButton" class="fa fa-desktop fa-2x">
+                            </i>
+                        </a>
+
+                        <span class="mtooltip">Control Center</span>
+                    </div>
+                    <div id="gavelDiv" class="d-flex justify-content-center align-items-center">
+                        <i id="gavelButton" class="fa fa-gavel fa-2x "></i>
+                        <span class="mtooltip">Regulation</span>
+                    </div>
+                    <div id="calendarDiv" class="d-flex justify-content-center align-items-center">
+                        <i id="calendarButton" class="fa fa-calendar fa-2x "></i>
+                        <span class="mtooltip">Update Schedule</span>
+                    </div>
+                    <div id="aboutDiv" class="d-flex justify-content-center align-items-center">
+                        <i id="aboutButton" class="fa-solid fa-circle-exclamation " style="
+                        font-size: 27px;"></i>
+                        <span class="mtooltip">About</span>
+                    </div>
+                </div>
+            </div>
+            <div id="dataTableButton">
+                <svg id="tablesvg" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                    <path class="a"
+                        d="M18.125,2.25H1.875A2.022,2.022,0,0,0,0,4.393V20.107A2.022,2.022,0,0,0,1.875,22.25h16.25A2.022,2.022,0,0,0,20,20.107V4.393A2.022,2.022,0,0,0,18.125,2.25ZM8.75,19.393H2.5V15.107H8.75Zm0-7.143H2.5V7.964H8.75Zm8.75,7.143H11.25V15.107H17.5Zm0-7.143H11.25V7.964H17.5Z"
+                        transform="translate(0 -2.25)" />
+                </svg>
+            </div>
+            <div id="dataTableContent">
+                <i class="fa-solid fa-xmark" id="closeDataTable"></i>
+                <table id="example" class="display datatable-slide-transition-class" style="width:100%;height:70px;">
+                    <thead>
+                        <tr id="head">
+                            <th>Sr.no</th>
+                            <th>OBJECTID</th>
+                            <th>Owner Name</th>
+                            <th>Developer Name</th>
+                            <th>Year Constructed</th>
+                            <th>Area Name</th>
+                            <th>Area(sq)</th>
+                            <th>Description</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center w-100 px-3"
+                style="background-color: #F9F9F9;height: 65px;" id="">
+                <div class="header-fisrt-child justify-content-between align-items-center w-100">
+                    <div class="d-flex align-items-center ">
+                        <img src="./assests/images/Picture2.png" class="header-fisrt-child-image" id="">
+                        <span class="header-fisrt-child-text items-center d-none d-lg-flex">
+                            CHANGE DETECTION
+                        </span>
+                    </div>
+                    <div style=" display: flex; align-items: center; gap: 17px;">
+                        <div id="lists">
+                            <ul class="pagination mt-3 d-flex">
+                                <li class="myview active" data-map-view-type="encroachment" id="encroachment">
+                                    ENCROACHMENT
+                                </li>
+                                <li class="myview" data-map-view-type="development" id="development"> DEVELOPMENT </li>
+                                <li class="myview" data-map-view-type="timeline" id="timeline"> TIMELINE </li>
+                                <li class="myview" data-map-view-type="landuse" id="landuse"> LANDUSE </li>
+                                <li class="myview" data-map-view-type="complaints" id="complaints"> COMPLAINTS
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panelIcons d-flex">
+                            <a class="text-white" href="login.html">
+                                <i class="fa fa-user-circle" id="userLogo" style="font-size:30px" ></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="position: absolute;right: 14px; bottom: 20px;z-index: -1;">
+            <i id="mapFullScreen" class="fa-solid fa-expand fs-2x pointer"
+                style="font-size: 34px; color: #F9F9F9; "></i>
+        </div>
+        <div class="widgetsPanel">
+            <i id="chevronUp" class="fa-solid fa-chevron-up pointer"
+                style="background-color:#4B5D67;color: #F9F9F9;"></i>
+            <div class="px-1" id="toolbar">
+                <div class="wbtn mt-2" id="filterButton" title="Filter">
+                    <svg id="filtersvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 27">
+                        <path id="Icon_awesome-filter" data-name="Icon awesome-filter"
+                            d="M26.686,0H1.314A1.261,1.261,0,0,0,.386,2.161L10.5,11.915V22.781a1.253,1.253,0,0,0,.56,1.037l4.375,2.952A1.317,1.317,0,0,0,17.5,25.733V11.915L27.614,2.161A1.261,1.261,0,0,0,26.686,0Z" />
+                    </svg>
+                </div>
+                <div class="wbtn" id="distanceButton" type="button" title="Measure distance between two points">
+                    <svg id="distancesvg" xmlns="http://www.w3.org/2000/svg" width="28" height="12.444"
+                        viewBox="0 0 28 12.444">
+                        <path id="Icon_awesome-ruler-horizontal" data-name="Icon awesome-ruler-horizontal"
+                            d="M26.444,9H24.111v4.278a.389.389,0,0,1-.389.389h-.778a.389.389,0,0,1-.389-.389V9H19.444v4.278a.389.389,0,0,1-.389.389h-.778a.389.389,0,0,1-.389-.389V9H14.778v4.278a.389.389,0,0,1-.389.389h-.778a.389.389,0,0,1-.389-.389V9H10.111v4.278a.389.389,0,0,1-.389.389H8.944a.389.389,0,0,1-.389-.389V9H5.444v4.278a.389.389,0,0,1-.389.389H4.278a.389.389,0,0,1-.389-.389V9H1.556A1.556,1.556,0,0,0,0,10.556v9.333a1.556,1.556,0,0,0,1.556,1.556H26.444A1.556,1.556,0,0,0,28,19.889V10.556A1.556,1.556,0,0,0,26.444,9Z"
+                            transform="translate(0 -9)" />
+                    </svg>
+                </div>
+                <div class="wbtn" id="areaButton" type="button" title="Measure area">
+                    <svg id="areasvg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                        <path id="Icon_awesome-ruler-combined" data-name="Icon awesome-ruler-combined"
+                            d="M7.813,14.063H5.078a.391.391,0,0,1-.391-.391v-.781a.391.391,0,0,1,.391-.391H7.813V9.375H5.078a.391.391,0,0,1-.391-.391V8.2a.391.391,0,0,1,.391-.391H7.813V4.688H5.078A.391.391,0,0,1,4.688,4.3V3.516a.391.391,0,0,1,.391-.391H7.813V1.563A1.563,1.563,0,0,0,6.25,0H1.563A1.563,1.563,0,0,0,0,1.563V23.438a1.5,1.5,0,0,0,.077.381l7.736-7.735Zm15.625,3.125H21.875v2.734a.391.391,0,0,1-.391.391H20.7a.391.391,0,0,1-.391-.391V17.188H17.188v2.734a.391.391,0,0,1-.391.391h-.781a.391.391,0,0,1-.391-.391V17.188H12.5v2.734a.391.391,0,0,1-.391.391h-.781a.391.391,0,0,1-.391-.391V17.188H8.917L1.182,24.923A1.507,1.507,0,0,0,1.563,25H23.438A1.563,1.563,0,0,0,25,23.438V18.75A1.563,1.563,0,0,0,23.438,17.188Z" />
+                    </svg>
+                </div>
+                <div class="wbtn" id="basemapBtn" title="Basemap">
+                    <svg id="basemapsvg" xmlns="http://www.w3.org/2000/svg" width="28" height="24" viewBox="0 0 28 24">
+                        <path id="Icon_metro-map" data-name="Icon metro-map"
+                            d="M2.571,6.892l8.75-3.2v19.2l-8.75,3.2Zm10.5-4,8.75,4.8v18.4l-8.75-4Zm10.5,4.8,7-4.8v19.2l-7,4.8Z"
+                            transform="translate(-2.571 -2.892)" />
+                    </svg>
+                </div>
+                <div class="wbtn" id="slideWidget" title="Slide Widget">
+                    <svg id="slidersvg" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                        <path id="Icon_material-slideshow" data-name="Icon material-slideshow"
+                            d="M14.222,11.444V22.556L21.167,17ZM26.722,4.5H7.278A2.786,2.786,0,0,0,4.5,7.278V26.722A2.786,2.786,0,0,0,7.278,29.5H26.722A2.786,2.786,0,0,0,29.5,26.722V7.278A2.786,2.786,0,0,0,26.722,4.5Zm0,22.222H7.278V7.278H26.722Z"
+                            transform="translate(-4.5 -4.5)" />
+                    </svg>
+                </div>
+                <div class="wbtn" id="screenshotBtn" title="Select screenshot area">
+                    <svg id="screenshotsvg" xmlns="http://www.w3.org/2000/svg" width="27" height="27"
+                        viewBox="0 0 27 27">
+                        <path id="Icon_awesome-print" data-name="Icon awesome-print"
+                            d="M23.625,10.125V4.074a1.688,1.688,0,0,0-.494-1.193L20.744.494A1.688,1.688,0,0,0,19.551,0H5.063A1.688,1.688,0,0,0,3.375,1.688v8.438A3.375,3.375,0,0,0,0,13.5v5.906a.844.844,0,0,0,.844.844H3.375v5.063A1.688,1.688,0,0,0,5.063,27H21.938a1.688,1.688,0,0,0,1.688-1.687V20.25h2.531A.844.844,0,0,0,27,19.406V13.5A3.375,3.375,0,0,0,23.625,10.125Zm-3.375,13.5H6.75V18.563h13.5Zm0-11.812H6.75V3.375H16.875V5.906a.844.844,0,0,0,.844.844H20.25Zm2.531,3.8a1.266,1.266,0,1,1,1.266-1.266A1.266,1.266,0,0,1,22.781,15.609Z" />
+                    </svg>
+                </div>
+                <div class="wbtn" id="directionButton" title="Direction">
+                    <svg id="directionsvg" xmlns="http://www.w3.org/2000/svg" width="22" height="27"
+                        viewBox="0 0 22 27">
+                        <path id="Icon_material-navigation" data-name="Icon material-navigation"
+                            d="M17.75,3l-11,25.991L7.791,30l9.959-4.263L27.709,30l1.041-1.009Z"
+                            transform="translate(-6.75 -3)" />
+                    </svg>
+                </div>
+                <div class="wbtn" id="dayBtn" title="Day and Night preview">
+                    <svg id="daysvg" xmlns="http://www.w3.org/2000/svg" width="19" height="27" viewBox="0 0 19 27">
+                        <path id="Icon_awesome-lightbulb" data-name="Icon awesome-lightbulb"
+                            d="M5.185,23.959a1.661,1.661,0,0,0,.289.933L6.4,26.247A1.738,1.738,0,0,0,7.835,27h3.331a1.738,1.738,0,0,0,1.438-.753l.922-1.355a1.659,1.659,0,0,0,.289-.933l0-2.022H5.182l0,2.022ZM0,9.281a9.108,9.108,0,0,0,2.351,6.105,15.073,15.073,0,0,1,2.818,4.822c0,.014,0,.027.006.041h8.649c0-.014,0-.027.006-.041a15.073,15.073,0,0,1,2.818-4.822A9.108,9.108,0,0,0,19,9.281,9.393,9.393,0,0,0,9.47,0,9.351,9.351,0,0,0,0,9.281ZM9.5,5.062A4.274,4.274,0,0,0,5.182,9.281a.864.864,0,0,1-1.727,0A5.984,5.984,0,0,1,9.5,3.375a.844.844,0,1,1,0,1.687Z"
+                            transform="translate(0 0)" />
+                    </svg>
+                </div>
+                <div class="wbtn" id="llBtn" title="Line of  Sight">
+                    <svg id="linesvg" xmlns="http://www.w3.org/2000/svg" width="27" height="18" viewBox="0 0 27 18">
+                        <path id="Icon_awesome-eye" data-name="Icon awesome-eye"
+                            d="M26.837,12.816A15.035,15.035,0,0,0,13.5,4.5,15.037,15.037,0,0,0,.163,12.816a1.516,1.516,0,0,0,0,1.368A15.035,15.035,0,0,0,13.5,22.5a15.037,15.037,0,0,0,13.337-8.316A1.516,1.516,0,0,0,26.837,12.816ZM13.5,20.25a6.75,6.75,0,1,1,6.75-6.75A6.75,6.75,0,0,1,13.5,20.25ZM13.5,9a4.468,4.468,0,0,0-1.186.178,2.243,2.243,0,0,1-3.136,3.136A4.49,4.49,0,1,0,13.5,9Z"
+                            transform="translate(0 -4.5)" />
+                    </svg>
+                </div>
+                <div class="wbtn mb-2" id="selectBtn" title="Selection tool">
+                    <svg id="selectsvg" xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+                        <path id="Icon_material-select-all" data-name="Icon material-select-all"
+                            d="M4.5,7.5h3v-3A3.009,3.009,0,0,0,4.5,7.5Zm0,12h3v-3h-3Zm6,12h3v-3h-3Zm-6-18h3v-3h-3Zm15-9h-3v3h3Zm9,0v3h3A3.009,3.009,0,0,0,28.5,4.5Zm-21,27v-3h-3A3.009,3.009,0,0,0,7.5,31.5Zm-3-6h3v-3h-3Zm9-21h-3v3h3Zm3,27h3v-3h-3Zm12-12h3v-3h-3Zm0,12a3.009,3.009,0,0,0,3-3h-3Zm0-18h3v-3h-3Zm0,12h3v-3h-3Zm-6,6h3v-3h-3Zm0-24h3v-3h-3Zm-12,18h15v-15h-15Zm3-12h9v9h-9Z"
+                            transform="translate(-4.5 -4.5)" />
+                    </svg>
+
+                </div>
+            </div>
+            <i id="chevronDown" class="fa-solid fa-chevron-down pointer"
+                style="background-color:#4B5D67;color: #F9F9F9;"></i>
+        </div>
+        <div id="legendDiv">
+        </div>
+        <div class="filter px-2 changeDetection-opacity-transition-class">
+            <div class="d-flex justify-content-around mt-2 align-items-center px-3 w-100 "
+                style=" background: #4B5D67;border-radius: 4px; ">
+                <small class="text-white" id="filtertxt1" style="color: #F9F9F9 !important;">Filter By</small>
+                <small class="text-white" id="filtertxt2" style="color: #F9F9F9 !important;">Selection</small>
+                <small class="text-white" id="filtertxt3" style="color: #F9F9F9 !important;">Filters</small>
+            </div>
+            <div class="d-flex" style="gap:10px">
+                <div class="filterBy">
+                    <div class="filterBy1 text-white"></div>
+                </div>
+                <div class="selection">
+                    <div class="selection1 text-white">
+                        <div id="filterSelection"></div>
+                    </div>
+                </div>
+
+                <div class="filters gap-10 " id="filtersBadge">
+
+                </div>
+
+            </div>
+            <div class="">
+                <button type="button" id="searchEncroch" class="btn btn-primary"><text
+                        id="searchTextField">Search</text> <span id="searchLoader"></span></button>
+                <button type="button" id="clearBtn" class="btn btn-primary">Clear</button>
+            </div>
+        </div>
+        <div class="legend" id="legend-container"></div>
+        <div class="carouselButtons">
+            <a class="pointer p-1">
+                <i class="fa-solid fa-chart-column fa-2x " style="color:#4B5D67;padding: 5px" id="charts_image"></i>
+            </a>
+            <div id="closeback">
+                <a class="closeCharts" style="color:#4B5D67">
+                    <i id="closeicon" class="fas fa-times fa-2x"></i>
+                </a>
+            </div>
+
+        </div>
+        <div id="carouselExampleControls"
+            class="carousel slide charts changeDetection-opacity-transition-class d-none encroachment"
+            data-ride="carousel" data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>
+                                <text style="color:#4B5D67" id="encroachCountTitle">Count of Encroachment</text>
+                            </div>
+                            <div id="encroachmentPieChart"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <text style="color:#4B5D67" id="encroachAreaTitle">Area of Encroachment</text>
+                            </div>
+                            <div id="encroachmentAreaPieChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="encroachmentBarChart"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="encroachmentLineChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="encroachmentAreaLineChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="clearHighlighting">
+                <i id="Icon_open-reload" class="fa-solid fa-arrow-rotate-right" data-name="Icon open-reload"></i>
+            </button>
+            <button type="button" class="moreDetailsCharts btn btn-primary btn-sm">Details</button>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" id="next">
+                <i class="fa-solid fa-arrow-right text-dark carousel-control-next-icon" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div id="carouselExampleControls1"
+            class="carousel slide charts changeDetection-opacity-transition-class d-none development"
+            data-ride="carousel" data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>
+                                <text style="color:#4B5D67" id="developmentCountTitle">Count of Development</text>
+                            </div>
+                            <div id="developmentPieChart"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <text style="color:#4B5D67" id="developmentAreaTitle">Area of Development</text>
+                            </div>
+                            <div id="developmentAreaPieChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="developmentAreaBarChart"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="developmentLineChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="developmentAreaLineChart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="clearHighlighting">
+                <i id="Icon_open-reload" class="fa-solid fa-arrow-rotate-right" data-name="Icon open-reload"></i>
+            </button>
+            <button type="button" class="moreDetailsCharts btn btn-primary btn-sm">Details</button>
+            <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next"
+                id="next1">
+                <i class="fa-solid fa-arrow-right text-dark carousel-control-next-icon" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div id="carouselExampleControls2"
+            class="carousel slide charts changeDetection-opacity-transition-class d-none landuse" data-ride="carousel"
+            data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>
+                                <text style="color:#4B5D67" id="landuseCountTitle">Landuse Count</text>
+                            </div>
+                            <div id="landusePieChart"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <text style="color:#4B5D67" id="landuseAreaTitle">Area of Landuse</text>
+                            </div>
+                            <div id="landuseAreaPieChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="landuseBarChart"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="landuseAreaBarChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="landuseLineChart"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="landuseAreaLineChart"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <button type="button" class="clearHighlighting">
+                <i id="Icon_open-reload" class="fa-solid fa-arrow-rotate-right" data-name="Icon open-reload"></i>
+            </button>
+            <button type="button" class="moreDetailsCharts btn btn-primary btn-sm">Details</button>
+            <a class="carousel-control-next" href="#carouselExampleControls2" role="button" data-slide="next"
+                id="next2">
+                <i class="fa-solid fa-arrow-right text-dark carousel-control-next-icon" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div id="carouselExampleControls3"
+            class="carousel slide charts changeDetection-opacity-transition-class d-none complaints"
+            data-ride="carousel" data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>
+                                <text style="color:#4B5D67" id="complaintsCountTitle">Count of Complaints</text>
+                            </div>
+                            <div id="complaintsPieChart"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="complaintsBarChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="complaintsLineChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="clearHighlighting d-none">
+                    <i id="Icon_open-reload" class="fa-solid fa-arrow-rotate-right" data-name="Icon open-reload"></i>
+                </button>
+                <button type="button" style="bottom:79px"
+                    class="moreDetailsCharts btn btn-primary btn-sm">Details</button>
+                <a class="carousel-control-next" href="#carouselExampleControls3" role="button" data-slide="next"
+                    id="next3">
+                    <i class="fa-solid fa-arrow-right text-dark carousel-control-next-icon" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+        <div id="carouselExampleControls4"
+            class="carousel slide charts changeDetection-opacity-transition-class d-none timeline" data-ride="carousel"
+            data-interval="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-6 timelinePieCharts">
+                            <div>
+                                <text id="timelineCountTitle">Count of Timeline</text>
+                            </div>
+                            <div id="timelinePieChart"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="timelineBarChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="timelineLineChart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between px-1 w-100" style="bottom: -6px;position: absolute;">
+                    <button type="button" class="clearHighlighting m-0 mb-2 me-0">
+                        <i id="Icon_open-reload" class="fa-solid fa-arrow-rotate-right"
+                            data-name="Icon open-reload"></i>
+                    </button>
+                    <button type="button" class="moreDetailsCharts btn btn-primary btn-sm">Details</button>
+                </div>
+            </div>
+            <a class="carousel-control-next" href="#carouselExampleControls4" role="button" data-slide="next" id="next">
+                <i class="fa-solid fa-arrow-right text-dark carousel-control-next-icon" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.13/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0-beta1/js/bootstrap.min.js" integrity="sha512-Hqe3s+yLpqaBbXM6VA0cnj/T56ii5YjNrMT9v+us11Q81L0wzUG0jEMNECtugqNu2Uq5MSttCg0p4KK0kCPVaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./assests/fontawesome-free-5.15.4-web/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <script src="./js/loader.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

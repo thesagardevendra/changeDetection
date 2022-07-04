@@ -1,0 +1,42 @@
+encr
+
+legal change- green -39F9BC
+illegal change-red -CB2C2A
+illegal-red-F07167
+for demolition-puprle-6A7DDC
+demolished-blue-3066BE
+no change-off white-FCEFEF
+disputed-yellow-#FFFD70
+for verification- light blue -51E5FF
+
+
+complaints
+
+inspected -#39B0FF
+complaint closed -#39F9BC
+assigned- #FFFD70
+reported- #CB2C2A
+no complaints -FCEFEF
+
+landuse
+residential #FE938C
+commericial #5CB9FF
+governmental #A1DB43
+mixed use #F2E863
+commercial residential mix #F68551
+institutional #B730E8
+educational #D2504B
+utilities #FC30CD
+not specified  #FCEFEF
+recreational #0070FF
+industrial #FF0000
+
+
+development
+under construction FFFD70
+under maintainence 51E5FF
+completed 39F9BC
+demolished 3066BE
+for demolition 6A7DDC
+stopped F07167
+depleted F68551

@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assests/images/icons8-city-buildings-100.png">
+    <title>Control Panel - Change Detection</title>
+    <link rel="stylesheet" href="./assests/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/ControlPanel.css">
+</head>
+<body>
+    <div id="viewDiv"></div>
+    <i class="fa-solid fa-table position-absolute" style="cursor: pointer;" id="showControlPanel"> </i>
+    <div class=" d-flex px-3 py-2 w-100 justify-content-between gap-3 align-items-center"
+        style="gap: 10px; background-color: #F9F9F9;height: 65px;">
+        <div class="d-flex align-items-center" >
+            <a href="index.html" target="_blank">
+                <img src="./assests/images/Picture2.png" class="globologo" alt="logo"></a>
+            <span class="header-fisrt-child-text align-items-center d-none d-lg-flex">
+                CHANGE DETECTION
+            </span>
+        </div>
+        <div class="menu">
+            <ul class="d-flex justify-content-between w-100" style="gap: 10px;">
+                <li class="active" data-map-view-type="encroachment">Encroachment</li>
+                <li data-map-view-type="development">Development</li>
+                <li data-map-view-type="timeline">Timeline</li>
+                <li data-map-view-type="landuse">Landuse</li>
+                <li data-map-view-type="complaints">Complaints</li>
+            </ul>
+        </div>
+    </div>
+    <div id="forms">
+        <i class="fa-solid fa-times position-absolute" style="cursor: pointer;" id="closeControlPanel"></i>
+        <div class="head d-flex justify-content-between w-100 align-items-center">
+            <div class="title">Details</div>
+            <div class="btns d-flex align-items-center" style="gap:3px;margin-right: 20px;" >
+                <button class="active" id="openUnit">Unit Details</button>
+                <button id="openPhysical">Physical Attributes</button>
+                <button id="openStatus">Status</button>
+            </div>
+        </div>
+        <div class="form-container">
+            <div id="unitData" >
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="">ObjectId</label>
+                                <input type="text" class="form-control component" id="objectId" placeholder="ObjectId"
+                                    required=''>
+                                <span class="message text-danger">Please enter id</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Unit Name</label>
+                                <input type="text" class="form-control component left" placeholder="Unit Name"
+                                    id="unitNameUnitDetails" required=''>
+                                <span class="message text-danger">Please Enter Unit Name</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Owner Name</label>
+                                <input type="text" class="form-control component" placeholder="Owner Name"
+                                    id="ownerNameUnitDetails" required=''>
+                                <span class="message text-danger">Please Enter Owner Name</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Developer Name</label>
+                                <input type="text" class="form-control component left" placeholder="Developer Name"
+                                    id="developerNameUnitDetails" required=''>
+                                <span class="message text-danger">Please Enter Developer Name</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label> Address</label>
+                                <input type="text" class="form-control component" placeholder="Address"
+                                    id="addressUnitDetails" required=''>
+                                <span class="message text-danger">Please Enter Address</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Area Name</label>
+                                <input type="text" class="form-control component left" placeholder="Area Name"
+                                    id="areaNameUnitDetails" required=''>
+                                <span class="message text-danger">Please Enter Area Name</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control textArea" id="descriptionUnitDetails" rows="2"
+                                required=''></textarea>
+                            <span class="message text-danger">Please Enter description</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="years">
+                    <div>
+                        <label>year constructed:</label>
+                        <input style="padding: 5px 2px;" type="number" id="yearConstructed" min="2015" max="2025"
+                            step="1" value="select" />
+                        <span class="message text-danger"> Select Date</span>
+                    </div>
+                    <div>
+                        <label>year Demolished:</label>
+                        <input style="padding: 5px 2px;" type="number" id="yearDemolished" min="2015" max="2025"
+                            step="1" value="select" />
+                        <span class="message text-danger"> Select Date</span>
+                    </div>
+                    <div>
+                        <label>record Date:</label>
+                        <input style="padding: 5px 2px;" type="date" id="recordDate" name="trip-start" value=""
+                            min="2015-01-01" max="2025-12-31" required=''>
+                        <span class="message text-danger">Select Date</span>
+                    </div>
+                </div>
+                <div class="row " style="padding-top:20px">
+                    <div class="col-md-12" style="display: flex;align-items: flex-end;">
+                        <label class="form-label " style="padding-right:10px" for="customFile">Attachments</label>
+                        <input type="file" class="form-control attachments" id="attachments" name="attachments" />
+                        <span class="message text-danger">Please Select files</span>
+                    </div>
+                </div>
+                <div style="text-align: center;padding-top: 20px;">
+                    <button type="button" id="saveUnitDetail">Save</button>
+                    <button type="button" id="deleteUnitDetail">Delete</button>
+                </div>
+            </div>
+            <div id="physicalform" style="display:none">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>ObjectId</label>
+                                <input type="text" class="form-control component" id="objectId" placeholder="ObjectId"
+                                    required=''>
+                                <span>Please enter id</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Unit Name</label>
+                                <input type="text" class="form-control component left" placeholder="Unit Name"
+                                    id="unitNameUnitDetails" required=''>
+                                <span>Please Enter Unit Name</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Area Name</label>
+                                <input type="text" class="form-control component left" placeholder="Area Name"
+                                    id="areaNameUnitDetails" required=''>
+                                <span>Please Enter Area Name</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Surface Area</label>
+                                <input type="text" class="form-control component left" placeholder="Surface Area"
+                                    id="surfaceAreaPhysicalAttribute" required=''>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Volume</label>
+                                <input type="text" class="form-control component" placeholder="Volume"
+                                    id="volumePhysicalAttribute" required=''>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Zmax</label>
+                                <input type="text" class="form-control component left" placeholder="Zmax"
+                                    id="zmaxPhysicalAttribute" required=''>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Zmin</label>
+                        <input type="text" class="form-control component" placeholder="Zmin" id="zminPhysicalAttribute"
+                            required=''>
+                    </div>
+                    <div class="col-md-4">
+                        <label>height</label>
+                        <input type="text" class="form-control component left" placeholder="height"
+                            id="heightPhysicalAttribute" required=''>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Comment</label>
+                        <input type="text" class="form-control component left" placeholder="Comment"
+                            id="commentPhysicalAttribute" required=''>
+                        <span> enter comments</span>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Latitude</label>
+                        <input type="text" class="form-control component" placeholder="Latitude"
+                            id="latitudePhysicalAttribute" required=''>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Longitude</label>
+                        <input type="text" class="form-control component left" placeholder="Longitude"
+                            id="longitudePhysicalAttribute" required=''>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Carpet Area</label>
+                        <input type="number" class="form-control component left" placeholder="Carapet Area"
+                            id="carpetAreaPhysicalAttribute" required=''>
+                        <span> Enter carpet Area</span>
+                    </div>
+                </div>
+
+                <div class="row" id="years">
+
+                    <div class="col-md-4">
+                        <div class="date">
+                            <label for="start" id="dateText" class="text-white">year
+                                constructed:</label><br>
+                            <input style="padding: 5px 2px;" class="w-100" type="number" id="yearConstructed" min="2015" max="2025"
+                                step="1" value="select" />
+
+                            <span class="message text-danger" style="display: none;margin: left
+                                    5px;"> Select Date</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="date">
+                            <label for="start" id="dateText" class="text-white">year
+                                Demolished:</label><br>
+                            <input class="w-100" style="padding: 5px 2px;" type="number" id="yearDemolished" min="2015" max="2025"
+                                step="1" value="select" />
+
+                            <span class="message text-danger" style="display: none;margin: left
+                                    5px;"> Select Date</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="date">
+                            <label for="start" id="dateText" class="text-white">record Date:</label><br>
+                            <input style="padding: 5px 2px;" type="date" id="recordDate" name="trip-start" value=""
+                                min="2015-01-01" max="2025-12-31" required=''>
+                            <span class="message text-danger" style="display: none;margin: left
+                                    5px;">Select Date</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:15px;text-align: center;">
+                    <button>Submit</button>
+                    <button style="margin-left: 10px;">Delete</button>
+                </div>
+            </div>
+            <div id="statusContent" style="display:none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 5%;" class="text-white">year</th>
+                            <th scope="col" style="width: 3%;" class="text-white">Encroachment</th>
+                            <th scope="col" style="width: 5%;" class="text-white">Development</th>
+                            <th scope="col" style="width: 8%;" class="text-white">Landuse</th>
+                            <th scope="col" style="width: 5%;" class="text-white">Complaints</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-white">2015</th>
+                            <td id="">
+                                <select name="cars" id="encroachment2015" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>>legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification Pending</option>
+                                </select>
+                            </td>
+                            <td id=""><select name="cars" id="development2015" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under Construction</option>
+                                    <option value="under maintainence">Under Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td id=""><select name="cars" id="landuse2015" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial Residential Mix</option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed
+                                        Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td id=""><select name="cars" id="complaints2015" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2016</th>
+                            <td><select name="cars" id="encroachment2016" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>>legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    >verification
+                                    Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2016" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under
+                                        Construction</option>
+                                    <option value="under maintainence">Under
+                                        Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2016" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial
+                                        Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed
+                                        Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2016" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2017</th>
+                            <td><select name="cars" id="encroachment2017" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification
+                                        Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2017" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under
+                                        Construction</option>
+                                    <option value="under maintainence">Under
+                                        Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2017" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial
+                                        Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed
+                                        Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2017" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2018</th>
+                            <td><select name="cars" id="encroachment2018" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification
+                                        Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2018" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under
+                                        Construction</option>
+                                    <option value="under maintainence">Under
+                                        Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2018" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial
+                                        Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed
+                                        Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2018" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2019</th>
+                            <td><select name="cars" id="encroachment2019" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification
+                                        Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2019" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under Construction</option>
+                                    <option value="under maintainence">Under Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2019" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2019" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2020</th>
+                            <td><select name="cars" id="encroachment2020" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification
+                                        Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2020" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under
+                                        Construction</option>
+                                    <option value="under maintainence">Under
+                                        Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2020" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial
+                                        Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed
+                                        Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2020" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2021</th>
+                            <td><select name="cars" id="encroachment2021" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification
+                                        Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2021" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under
+                                        Construction</option>
+                                    <option value="under maintainence">Under
+                                        Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2021" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial
+                                        Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed
+                                        Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2021" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2022</th>
+                            <td><select name="cars" id="encroachment2022" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification
+                                        Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2022" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under
+                                        Construction</option>
+                                    <option value="under maintainence">Under
+                                        Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2022" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial
+                                        Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed
+                                        Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2022" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2023</th>
+                            <td><select name="cars" id="encroachment2023" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification
+                                        Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2023" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under Construction</option>
+                                    <option value="under maintainence">Under
+                                        Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2023" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial
+                                        Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed
+                                        Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2023" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2024</th>
+                            <td><select name="cars" id="encroachment2024" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification
+                                        Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2024" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under Construction</option>
+                                    <option value="under maintainence">Under Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2024" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial
+                                        Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed
+                                        Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2024" class="tableCells
+                                    text-white">
+                                    <option value="reported">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-white">2025</th>
+                            <td><select name="cars" id="encroachment2025" class="tableCells
+                                    text-white">
+                                    <option value="demolished">Demolished</option>
+                                    <option value="disputed">Disputed</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="illegal">illegal</option>
+                                    <option value="illegal change">illegal Change</option>
+                                    <option value="legal change">legal change</option>
+                                    <option value="unaffected">unaffected</option>
+                                    <option value="verification pending">verification
+                                        Pending</option>
+                                </select></td>
+                            <td><select name="cars" id="development2025" class="tableCells
+                                    text-white">
+                                    <option value="depleted">Depleted</option>
+                                    <option value="planned">Planned</option>
+                                    <option value="proposed">Proposed</option>
+                                    <option value="under construction">Under
+                                        Construction</option>
+                                    <option value="under maintainence">Under
+                                        Maintainence</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="stopped">Stopped</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="for demolition">For
+                                        demolition</option>
+                                    <option value="unchanged">unchange</option>
+                                </select></td>
+                            <td><select name="cars" id="landuse2025" class="tableCells
+                                    text-white">
+                                    <option value="commercial residential mix">Commercial
+                                        Residential Mix
+                                    </option>
+                                    <option value="commericial">Commercial</option>
+                                    <option value="educational">educational</option>
+                                    <option value="governmental">Govermental</option>
+                                    <option value="industrial">industrial</option>
+                                    <option value="institutional">institutional</option>
+                                    <option value="mixed use">Mixed Use</option>
+                                    <option value="not specified">Not Specified</option>
+                                    <option value="recreational">recreational</option>
+                                    <option value="residential">residential</option>
+                                    <option value="utilities">utilities</option>
+                                </select></td>
+                            <td><select name="cars" id="complaints2025" class="tableCells
+                                    text-white">
+                                    <option value="tilites">Reported</option>
+                                    <option value="assigned">Assigned</option>
+                                    <option value="inspected">Inspected</option>
+                                    <option value="demolished">Demolished</option>
+                                    <option value="no complaints">No Complaints</option>
+                                    <option value="complaint closed">Complaint Closed</option>
+                                </select></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="padding:15px;text-align: center;">
+                    <button type="button" id="stausSaveBtn">Save</button>
+                    <button type="button" id="statusDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="widgets">
+        <div class="basemap" id="basemapBtn">
+            <svg id="basemapsvg" xmlns="http://www.w3.org/2000/svg" width="28" height="24" viewBox="0 0 28 24"
+                class="active" style=" margin-left: -1px;  ">
+                <path id="Icon_metro-map" data-name="Icon metro-map"
+                    d="M2.571,6.892l8.75-3.2v19.2l-8.75,3.2Zm10.5-4,8.75,4.8v18.4l-8.75-4Zm10.5,4.8,7-4.8v19.2l-7,4.8Z"
+                    transform="translate(-2.571 -2.892)"></path>
+            </svg>
+            <div class="box" id="widgetDivCont"> basemap</div>
+        </div>
+        <div class="timeslider" id="timeSlideDiv">
+            <svg id="timeSlideButton" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                style="
+    margin-left: -2px;
+    margin-top: -2px;
+">
+                <path id="Icon_ionic-ios-time" data-name="Icon ionic-ios-time"
+                    d="M18.375,3.375a15,15,0,1,0,15,15A15,15,0,0,0,18.375,3.375Zm1.01,16.3a1.013,1.013,0,0,1-1.01,1.01H11.452a1.01,1.01,0,0,1,0-2.019h5.913V9.144a1.01,1.01,0,0,1,2.019,0Z"
+                    transform="translate(-3.375 -3.375)"></path>
+            </svg>
+            <!-- <div class="box">time slider </div> -->
+        </div>
+        <div class="layerlist" id="layerListDiv">
+            <svg id="layerListButton" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                style="
+    margin-left: -2px;
+    margin-top: -2px;
+">
+                <path id="Icon_awesome-layer-group" data-name="Icon awesome-layer-group"
+                    d="M.727,8.673l13.649,6.192a1.5,1.5,0,0,0,1.247,0L29.272,8.673a1.309,1.309,0,0,0,0-2.345L15.624.135a1.5,1.5,0,0,0-1.247,0L.727,6.327a1.31,1.31,0,0,0,0,2.346Zm28.545,5.173-3.4-1.543L16.4,16.6a3.377,3.377,0,0,1-2.8,0L4.131,12.3l-3.4,1.543a1.308,1.308,0,0,0,0,2.344l13.649,6.187a1.5,1.5,0,0,0,1.247,0l13.649-6.187a1.308,1.308,0,0,0,0-2.344Zm0,7.488L25.882,19.8,16.4,24.1a3.377,3.377,0,0,1-2.8,0L4.118,19.8.727,21.334a1.308,1.308,0,0,0,0,2.344l13.649,6.187a1.5,1.5,0,0,0,1.247,0l13.649-6.187a1.308,1.308,0,0,0,0-2.344Z"
+                    transform="translate(0 0.001)"></path>
+            </svg>
+            <div class="box" id="layerlist"> </div>
+        </div>
+        <div id="legendDiv">
+            <svg id="legendButton" xmlns="http://www.w3.org/2000/svg" width="27" height="22.5" viewBox="0 0 27 22.5">
+                <path id="Icon_awesome-list" data-name="Icon awesome-list"
+                    d="M4.219,20.683H.844A.855.855,0,0,0,0,21.548V25.01a.855.855,0,0,0,.844.865H4.219a.855.855,0,0,0,.844-.865V21.548A.855.855,0,0,0,4.219,20.683Zm0-17.308H.844A.855.855,0,0,0,0,4.24V7.7a.855.855,0,0,0,.844.865H4.219A.855.855,0,0,0,5.063,7.7V4.24A.855.855,0,0,0,4.219,3.375Zm0,8.654H.844A.855.855,0,0,0,0,12.894v3.462a.855.855,0,0,0,.844.865H4.219a.855.855,0,0,0,.844-.865V12.894A.855.855,0,0,0,4.219,12.029Zm21.938,9.519H9.281a.855.855,0,0,0-.844.865v1.731a.855.855,0,0,0,.844.865H26.156A.855.855,0,0,0,27,24.144V22.413A.855.855,0,0,0,26.156,21.548Zm0-17.308H9.281a.855.855,0,0,0-.844.865V6.837a.855.855,0,0,0,.844.865H26.156A.855.855,0,0,0,27,6.837V5.106A.855.855,0,0,0,26.156,4.24Zm0,8.654H9.281a.855.855,0,0,0-.844.865V15.49a.855.855,0,0,0,.844.865H26.156A.855.855,0,0,0,27,15.49V13.76A.855.855,0,0,0,26.156,12.894Z"
+                    transform="translate(0 -3.375)" />
+            </svg>
+        </div>
+        <div class="searchWidgetDiv">
+            <svg xmlns="http://www.w3.org/2000/svg" id="searchLogo" width="20" height="20" viewBox="0 0 20 20" style=" margin-left: 12%; ">
+                <path id="Icon_map-search" data-name="Icon map-search"
+                    d="M16.075,13.413a7.909,7.909,0,1,0-2.663,2.66l5.367,5.366,2.661-2.663Zm-6.743.8a4.879,4.879,0,1,1,4.882-4.877A4.887,4.887,0,0,1,9.331,14.214Z"
+                    transform="translate(-1.44 -1.44)" fill="#4B5D67"></path>
+            </svg>
+
+        </div>
+    </div>
+    <div class="controlwidgets">
+        <div>
+            <svg id="homeDiv" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                <path id="Icon_metro-home" data-name="Icon metro-home"
+                    d="M32.571,20.928l-15-12.834-15,12.834V15.7l15-12.834,15,12.834Zm-3.75-.466v12.4h-7.5V24.595h-7.5v8.267h-7.5v-12.4l11.25-9.3Z"
+                    transform="translate(-2.571 -2.861)" />
+            </svg>
+            <span class="widgetsSpan">Home</span>
+        </div>
+        <div>
+            <svg id="computerButton" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                <path id="Path_4" data-name="Path 4"
+                    d="M34.186,10.15H6.194a1.072,1.072,0,0,0-1,1.129V29.82a1.072,1.072,0,0,0,1,1.129H34.186a1.072,1.072,0,0,0,1-1.129V11.279A1.072,1.072,0,0,0,34.186,10.15Zm.141,18.7a1.072,1.072,0,0,1-1,1.129H7.058a1.072,1.072,0,0,1-1-1.129V12.25a1.072,1.072,0,0,1,1-1.129H33.322a1.072,1.072,0,0,1,1,1.129Zm-1-16.975H7.058a.357.357,0,0,0-.335.376v16.6a.357.357,0,0,0,.335.376H33.322a.357.357,0,0,0,.335-.376V12.25a.357.357,0,0,0-.335-.376ZM8.062,21.321a.337.337,0,1,1-.669,0v-.79a.337.337,0,1,1,.669,0Zm0-2.258a.337.337,0,1,1-.669,0V13.756a.337.337,0,1,1,.669,0ZM31.93,39.516c0,.023-.087.188-.582.418a1.705,1.705,0,0,1-1.141.1,46.147,46.147,0,0,0-9.825-.892,44.411,44.411,0,0,0-10.042.949,1.723,1.723,0,0,1-1.095-.06c-.723-.29-.793-.508-.8-.508.107-.5,2.983-1.506,9.426-1.739q.335,0,.669-.023c1.178-.03,2.424-.026,3.6,0h.425c6.39.252,9.242,1.261,9.363,1.758ZM19.49,36.99H18.238l.522-5.311h2.852l.529,5.307H19.49Z"
+                    transform="translate(-5.19 -10.15)" />
+            </svg>
+            <span class="widgetsSpan">Control Centre</span>
+        </div>
+        <div>
+            <svg id="gavelButton" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                <path id="Icon_awesome-gavel" data-name="Icon awesome-gavel"
+                    d="M29.588,11.681l-1.326-1.326a1.406,1.406,0,0,0-1.989,0l-.331.331L19.313,4.058l.331-.331a1.406,1.406,0,0,0,0-1.989L18.319.412a1.406,1.406,0,0,0-1.989,0L9.038,7.7a1.406,1.406,0,0,0,0,1.989l1.326,1.326a1.406,1.406,0,0,0,1.989,0l.331-.331L15,13.007l-4.748,4.748-.331-.331a1.875,1.875,0,0,0-2.652,0L.549,24.147a1.875,1.875,0,0,0,0,2.652L3.2,29.451a1.875,1.875,0,0,0,2.652,0l6.723-6.723a1.875,1.875,0,0,0,0-2.652l-.331-.331L16.993,15l2.32,2.32-.331.331a1.406,1.406,0,0,0,0,1.989l1.326,1.326a1.406,1.406,0,0,0,1.989,0l7.292-7.292a1.406,1.406,0,0,0,0-1.989Z"
+                    transform="translate(0 0)" />
+            </svg>
+            <span class="widgetsSpan">Regulation</span>
+        </div>
+        <div>
+            <svg id="calendarButton" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                <path id="Icon_awesome-calendar-alt" data-name="Icon awesome-calendar-alt"
+                    d="M0,27.188A3.034,3.034,0,0,0,3.214,30H26.786A3.034,3.034,0,0,0,30,27.188V11.25H0ZM21.429,15.7a.761.761,0,0,1,.8-.7h2.679a.761.761,0,0,1,.8.7v2.344a.761.761,0,0,1-.8.7H22.232a.761.761,0,0,1-.8-.7Zm0,7.5a.761.761,0,0,1,.8-.7h2.679a.761.761,0,0,1,.8.7v2.344a.761.761,0,0,1-.8.7H22.232a.761.761,0,0,1-.8-.7Zm-8.571-7.5a.761.761,0,0,1,.8-.7h2.679a.761.761,0,0,1,.8.7v2.344a.761.761,0,0,1-.8.7H13.661a.761.761,0,0,1-.8-.7Zm0,7.5a.761.761,0,0,1,.8-.7h2.679a.761.761,0,0,1,.8.7v2.344a.761.761,0,0,1-.8.7H13.661a.761.761,0,0,1-.8-.7ZM4.286,15.7a.761.761,0,0,1,.8-.7H7.768a.761.761,0,0,1,.8.7v2.344a.761.761,0,0,1-.8.7H5.089a.761.761,0,0,1-.8-.7Zm0,7.5a.761.761,0,0,1,.8-.7H7.768a.761.761,0,0,1,.8.7v2.344a.761.761,0,0,1-.8.7H5.089a.761.761,0,0,1-.8-.7ZM26.786,3.75H23.571V.938A1.014,1.014,0,0,0,22.5,0H20.357a1.014,1.014,0,0,0-1.071.938V3.75H10.714V.938A1.014,1.014,0,0,0,9.643,0H7.5A1.014,1.014,0,0,0,6.429.938V3.75H3.214A3.034,3.034,0,0,0,0,6.563V9.375H30V6.563A3.034,3.034,0,0,0,26.786,3.75Z" />
+            </svg>
+            <span class="widgetsSpan">Update Schedule</span>
+        </div>
+        <div>
+            <svg id="aboutButton" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                <path id="Icon_ionic-md-information-circle" data-name="Icon ionic-md-information-circle"
+                    d="M18.375,3.375a15,15,0,1,0,15,15A15.007,15.007,0,0,0,18.375,3.375Zm1.514,22.5H16.861V16.861h3.029Zm0-11.971H16.861V10.875h3.029Z"
+                    transform="translate(-3.375 -3.375)" />
+            </svg>
+            <span class="widgetsSpan">About</span>
+        </div>
+
+    </div>
+    <div class="legend box" id="legend-container"></div>
+    <div id="searchWidget" class="mySearch">
+        <div style="position: relative;">
+            <text id="searchText">Search</text>
+            <img id="SearchCross" src="./assests/images/Icon metro-cross.png">
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <script src="./js/controlPanelMain.js"></script>
+</body>
+</html>
